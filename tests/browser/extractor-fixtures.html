@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>ReadBridge Extractor Tests</title></head>
+<body>
+  <pre id="result">running</pre>
+  <script src="../../apps/browser-extension/extractor.js"></script>
+  <script>
+    const fixtures = [
+      { name: "中文新闻", token: "调查此前", html: `<article><h1>道路施工通知</h1><p>今天上午，城市管理部门发布道路施工安排。人民路部分路段将临时封闭。</p><p>施工从上午八点开始，预计下午六点结束。有关部门正在调查此前道路损坏的原因。</p></article>` },
+      { name: "英文新闻", token: "investigation", html: `<main><h1>City opens a new public library</h1><p>The city opened a public library on Monday. The building provides reading rooms and accessible computers.</p><p>Officials said the project was completed on schedule. An investigation into a minor construction issue is continuing.</p></main>` },
+      { name: "EMQX技术文档", token: "GSSAPI", html: `<div class="layout"><aside><ul><li>EMQX Dashboard</li><li>客户端授权</li></ul></aside><main><div class="vp-doc"><h1>客户端认证</h1><p>EMQX 支持多种客户端认证机制，用户可以根据系统需要选择认证方式。</p><h2>认证方式</h2><ul><li>密码认证：使用用户名或客户端 ID 和密码。</li><li>JWT：使用 Token 证明身份。</li><li>SCRAM：使用挑战和响应进行双向认证。</li><li>GSSAPI：通过 Kerberos 票据进行认证。</li><li>客户端信息：根据客户端 ID、用户名和 IP 地址认证。</li></ul></div></main></div>` },
+      { name: "GitHub README", token: "Installation", html: `<div class="markdown-body"><h1>Example Project</h1><p>This project demonstrates a command line application for processing structured documents.</p><h2>Installation</h2><pre><code>npm install example</code></pre><h2>Usage</h2><p>Run the command with a source file and an output directory.</p></div>` },
+      { name: "VitePress文档", token: "配置文件", html: `<main><div class="vp-doc"><h1>快速开始</h1><p>本教程介绍如何安装工具并创建第一个项目。</p><h2>配置文件</h2><p>在项目根目录创建配置文件，然后填写服务地址和端口。</p><pre><code>server.port = 8080</code></pre></div></main>` },
+      { name: "Docusaurus文档", token: "API reference", html: `<main><div class="theme-doc-markdown markdown"><h1>Developer Guide</h1><p>This guide explains how to connect an application to the service securely.</p><h2>API reference</h2><p>Send HTTPS requests with an access token. The server returns JSON responses.</p></div></main>` },
+      { name: "博客文章", token: "第二步", html: `<article class="post-content"><h1>一次旅行的准备过程</h1><p>出发前需要检查天气，并根据行程准备衣物。</p><h2>准备步骤</h2><p>第一步是确认车票和住宿。第二步是准备身份证件和常用药品。</p></article>` },
+      { name: "列表页面", token: "身份证", html: `<main><h1>办理材料</h1><p>申请业务前，请准备以下材料并确认信息有效。</p><ol><li>本人身份证原件。</li><li>已经填写完整的申请表。</li><li>符合要求的近期照片。</li><li>预约成功后的电子凭证。</li></ol></main>` },
+      { name: "表格页面", token: "办理地点", html: `<main><h1>服务时间</h1><p>下表列出了不同业务的办理时间和地点。</p><table><thead><tr><th>业务</th><th>办理时间</th><th>办理地点</th></tr></thead><tbody><tr><td>身份认证</td><td>周一上午</td><td>服务大厅一楼</td></tr><tr><td>材料补交</td><td>周三下午</td><td>服务大厅二楼</td></tr></tbody></table></main>` },
+      { name: "代码页面", token: "fetch", html: `<main><h1>请求接口</h1><p>下面的代码演示如何请求健康检查接口，并读取服务器返回的数据。</p><pre><code>const response = await fetch('/health');\nconst data = await response.json();</code></pre><p>请求失败时，请检查服务地址和网络连接。</p></main>` },
+      { name: "语雀动态技术文档", token: "Type-C", html: `<div><aside id="sidePanel"><span>HaaS506-WIKI</span><span>首页</span><span>目录</span><span>搜索</span></aside><div id="doc-reader-content"><h1 id="article-title">ESP32可编程RTU-ED1介绍</h1><div class="yuque-doc-content"><div class="ne-viewer-body"><ne-p>ED1硬件升级到V2版本。</ne-p><ne-alert-hole>V1与V2版本对比：</ne-alert-hole><ne-oli>原Type-C接口可以连接电脑下载固件，软件开发方式不变。</ne-oli><ne-h1>一、概述</ne-h1><ne-p>设备支持RS232、RS485、USB和TTL接口。</ne-p><ne-h2>硬件参数</ne-h2><ne-table-hole><table><tr><td>CPU</td><td>ESP32-S3</td></tr></table></ne-table-hole><div class="ne-ui-image-ocr-text"><ne-p>图片OCR噪声不应出现</ne-p></div></div></div></div></div>` },
+    ];
+    const results = fixtures.map((fixture) => {
+      const doc = document.implementation.createHTMLDocument(fixture.name);
+      doc.body.innerHTML = fixture.html;
+      const output = new ReadBridgeUniversalContentExtractor(doc).extract();
+      return { name: fixture.name, pass: Boolean(output && output.text.includes(fixture.token)), strategy: output?.strategy, pageType: output?.pageType, length: output?.text.length || 0 };
+    });
+    const summary = { passed: results.filter((item) => item.pass).length, total: results.length, results };
+    document.querySelector("#result").textContent = JSON.stringify(summary, null, 2);
+    document.documentElement.dataset.testsPassed = String(summary.passed === summary.total);
+  </script>
+</body>
+</html>

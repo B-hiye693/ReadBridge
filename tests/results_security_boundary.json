@@ -1,0 +1,69 @@
+{
+  "name": "security_boundary",
+  "checks": [
+    {
+      "name": "invalid_json",
+      "status": 422,
+      "pass": true
+    },
+    {
+      "name": "easy_read_empty",
+      "status": 422,
+      "pass": true
+    },
+    {
+      "name": "easy_read_oversize",
+      "status": 422,
+      "pass": true
+    },
+    {
+      "name": "explain_oversize",
+      "status": 422,
+      "pass": true
+    },
+    {
+      "name": "invalid_block_id",
+      "status": 422,
+      "pass": true
+    },
+    {
+      "name": "tts_empty",
+      "status": 422,
+      "pass": true
+    },
+    {
+      "name": "tts_oversize",
+      "status": 422,
+      "pass": true
+    },
+    {
+      "name": "tts_bad_rate",
+      "status": 422,
+      "pass": true
+    },
+    {
+      "name": "tts_bad_voice_chars",
+      "status": 422,
+      "pass": true
+    },
+    {
+      "name": "unsupported_put",
+      "status": 405,
+      "pass": true
+    },
+    {
+      "name": "missing_route",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "name": "untrusted_origin_no_allow_origin",
+      "status": 400,
+      "allow_origin": null,
+      "pass": true
+    }
+  ],
+  "passed": 12,
+  "failed": 0,
+  "timestamp": "2026-10-27 23:36:29"
+}

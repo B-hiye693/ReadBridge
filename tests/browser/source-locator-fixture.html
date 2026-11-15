@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>ReadBridge Source Locator Test</title>
+  <style>body{margin:0} nav{padding:20px} main{max-width:760px;padding:30px 40px 1000px} p,li,td,h2{margin:24px 0;padding:4px}</style>
+</head>
+<body>
+  <nav><a id="nav-duplicate">JWT认证</a><a>事故原因尚未确认</a></nav>
+  <aside>目录 JWT认证</aside>
+  <main role="main">
+    <article>
+      <h1>测试正文</h1>
+      <h2 id="technical-title">JWT认证</h2>
+      <p id="inline-target">客户端可以使用 <strong>JWT</strong> 进行身份认证。</p>
+      <ul><li id="list-target">连接服务器前，需要准备客户端标识和认证信息。</li></ul>
+      <table><tr><th>项目</th><th>说明</th></tr><tr><td id="table-target">认证方式</td><td>JSON Web Token</td></tr></table>
+      <table id="di-table"><tr><th>项目</th><th>说明</th></tr><tr id="channels-row"><td>路数</td><td>2路</td></tr><tr id="default-row"><td>默认形态</td><td>干接点</td></tr><tr id="pins-row"><td>MicroPython引脚映射</td><td>DI1 GPIO41，DI2 GPIO42</td></tr></table>
+      <p id="news-target">中国官方媒体随后宣布，火箭在飞行过程中出现异常，发射任务失败。</p>
+      <p id="multi-a">第一段说明火箭发射后约八十五秒出现异常。</p>
+      <p id="multi-b">第二段说明事故的具体原因尚未确认。</p>
+      <p id="multi-c">第三段说明仍需等待官方调查结果。</p>
+      <p>为了确保正文提取器能够稳定识别，这里补充一段足够长的测试正文。该页面只用于自动化测试，不会连接任何真实网络服务，也不会发送私人内容。</p>
+    </article>
+  </main>
+  <script>
+    const data = {
+      title: "定位测试",
+      one_sentence: "文章介绍了认证和事故信息。",
+      sections: [
+        { icon: "🔐", heading: "JWT认证", content: "客户端可以使用JWT认证。", source_text: "客户端可以使用 JWT 进行身份认证。" },
+        { icon: "📰", heading: "事故原因尚未确认", content: "任务失败，原因尚未确认。", source_text: "中国官方媒体随后宣布，火箭在飞行过程中出现异常，发射任务失败。" },
+      ],
+      key_points: [{ label: "准备事项", value: "准备认证信息", source_text: "连接服务器前，需要准备客户端标识和认证信息。" }],
+      difficult_words: [{ word: "JWT", simple: "一种令牌格式", source_text: "客户端可以使用 JWT 进行身份认证。" }],
+      action: { needed: false, title: "", steps: [] },
+    };
+    window.__rbMessageCount = 0;
+    window.__fakeSpeech = { cancelCount: 0, paused: false, spoken: [] };
+    const fakeSynth = {
+      getVoices(){return[{name:"中文",lang:"zh-CN"}]}, addEventListener(){}, removeEventListener(){},
+      speak(item){window.__fakeSpeech.spoken.push(item.text);item.onstart?.()}, cancel(){window.__fakeSpeech.cancelCount++},
+      pause(){window.__fakeSpeech.paused=true}, resume(){window.__fakeSpeech.paused=false},
+    };
+    class FakeUtterance { constructor(text){this.text=text} }
+    Object.defineProperty(window,"speechSynthesis",{configurable:true,value:fakeSynth});
+    Object.defineProperty(window,"SpeechSynthesisUtterance",{configurable:true,value:FakeUtterance});
+    window.chrome = {
+      storage:{local:{get(_k,cb){cb({})},set(){}}},
+      runtime:{async sendMessage(message){
+        window.__rbMessageCount++;
+        window.__lastEasyReadPayload = message.payload;
+        const registry = window.__readBridgeBlockRegistry;
+        const idFor = (text) => registry?.blocks?.find(block => block.text.includes(text))?.id;
+        const response = structuredClone(data);
+        response.sections[0].source_block_ids = [idFor('客户端可以使用')].filter(Boolean);
+        response.sections[1].source_block_ids = [idFor('中国官方媒体')].filter(Boolean);
+        response.key_points[0].source_block_ids = [idFor('连接服务器前')].filter(Boolean);
+        response.difficult_words[0].source_block_ids = [idFor('客户端可以使用')].filter(Boolean);
+        return{success:true,data:response};
+      },onMessage:{addListener(fn){window.__rbRuntimeListener=fn}}},
+    };
+    window.__rbErrors=[];
+    addEventListener("error",event=>window.__rbErrors.push(event.message));
+  </script>
+  <script src="../../apps/browser-extension/speech.js"></script>
+  <script src="../../apps/browser-extension/extractor.js"></script>
+  <script src="../../apps/browser-extension/source-locator.js"></script>
+  <script src="../../apps/browser-extension/content.js"></script>
+</body>
+</html>

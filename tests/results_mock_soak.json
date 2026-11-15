@@ -1,0 +1,20 @@
+{
+  "name": "mock_soak",
+  "requests": 2478,
+  "passed": 2478,
+  "failed": 0,
+  "status_counts": {
+    "200": 2478
+  },
+  "latency_ms": {
+    "min": 1.0,
+    "median": 1.7,
+    "p95": 6.7,
+    "p99": 10.2,
+    "max": 18.9
+  },
+  "configured_seconds": 180,
+  "actual_seconds": 180.12,
+  "cycles": 826,
+  "timestamp": "2026-10-27 23:39:38"
+}

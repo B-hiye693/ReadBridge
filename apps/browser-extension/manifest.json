@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "阅桥 - AI认知无障碍阅读助手",
+  "short_name": "阅桥",
+  "description": "阅桥 ReadBridge：把复杂网页转换成更容易理解和采取行动的信息。",
+  "version": "0.8.3",
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": [
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*"
+  ],
+  "action": {
+    "default_title": "阅桥 ReadBridge",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["speech.js", "extractor.js", "source-locator.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

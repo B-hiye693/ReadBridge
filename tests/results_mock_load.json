@@ -1,0 +1,20 @@
+{
+  "name": "mock_load",
+  "requests": 200,
+  "passed": 200,
+  "failed": 0,
+  "status_counts": {
+    "200": 200
+  },
+  "latency_ms": {
+    "min": 10.8,
+    "median": 31.0,
+    "p95": 85.4,
+    "p99": 110.8,
+    "max": 166.4
+  },
+  "concurrency": 20,
+  "wall_seconds": 0.391,
+  "throughput_rps": 511.51,
+  "timestamp": "2026-10-27 23:36:29"
+}

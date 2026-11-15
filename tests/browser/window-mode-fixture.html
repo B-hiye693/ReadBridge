@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>ReadBridge Window Mode Test</title></head>
+<body>
+  <main><article><h1>窗口测试页面</h1><p>这是用于验证阅桥窗口交互的本地页面，不会发送任何 AI 请求。</p></article></main>
+  <script>
+    const readStored = () => JSON.parse(localStorage.getItem("rb-test-storage") || "{}");
+    window.__rbMessageCount = 0;
+    window.__rbErrors = [];
+    window.addEventListener("error", (event) => window.__rbErrors.push(event.message));
+    window.chrome = {
+      storage: { local: {
+        get(_keys, callback) { callback(readStored()); },
+        set(values) { localStorage.setItem("rb-test-storage", JSON.stringify({ ...readStored(), ...values })); },
+      } },
+      runtime: {
+        sendMessage() { window.__rbMessageCount += 1; return Promise.resolve({ success: false }); },
+        onMessage: { addListener(listener) { window.__rbRuntimeListener = listener; } },
+      },
+    };
+  </script>
+  <script src="../../apps/browser-extension/speech.js"></script>
+  <script src="../../apps/browser-extension/extractor.js"></script>
+  <script src="../../apps/browser-extension/source-locator.js"></script>
+  <script src="../../apps/browser-extension/content.js"></script>
+</body>
+</html>

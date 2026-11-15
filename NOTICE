@@ -1,0 +1,44 @@
+ReadBridge (阅桥)
+Copyright 2026 ReadBridge project contributors
+
+This product is licensed under the Apache License, Version 2.0.
+The full license text is provided in the LICENSE file.
+
+Third-party software and services
+
+ReadBridge uses the following direct Python dependencies. These components
+remain subject to their own licenses and are not relicensed by ReadBridge:
+
+- FastAPI 0.115.6 — MIT License
+  Source: https://github.com/fastapi/fastapi
+- Uvicorn 0.34.0 — BSD 3-Clause License
+  Source: https://github.com/encode/uvicorn
+- pydantic-settings 2.7.1 — MIT License
+  Source: https://github.com/pydantic/pydantic-settings
+- HTTPX 0.28.1 — BSD 3-Clause License
+  Source: https://github.com/encode/httpx
+- OpenAI Python SDK 2.48.0 or 2.54.0, selected by Python version — Apache-2.0
+  Source: https://github.com/openai/openai-python
+- TesseractOCR 5.5.2 .NET wrapper and bundled Tesseract/Leptonica binaries — Apache-2.0
+  Source: https://github.com/Sicos1977/TesseractOCR
+- Tesseract tessdata_fast English trained data — Apache-2.0
+  Source: https://github.com/tesseract-ocr/tessdata_fast
+
+Installed distributions can include transitive dependencies. Before releasing
+a binary package or bundled environment, generate and review a complete
+dependency and license inventory and retain all notices required by those
+dependencies.
+
+The qwen-plus model and CosyVoice service are Alibaba Cloud Model Studio
+(Bailian) services. They are not included in or granted under this project's
+Apache-2.0 license. Users must obtain their own account credentials and comply
+with the applicable Alibaba Cloud agreements, model terms, data rules, billing
+rules, and voice/content restrictions.
+
+Chrome extension APIs and the Web Speech API are browser platform capabilities.
+Their availability and use remain subject to the browser vendor's policies.
+
+Webpage content, test inputs, voices, model outputs, and other third-party
+materials are not automatically covered by the ReadBridge license. Their
+copyright, privacy, and redistribution status must be assessed separately.
+

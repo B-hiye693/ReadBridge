@@ -1,0 +1,9 @@
+<Window x:Class="ReadBridge.Desktop.FloatingBallWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="76" Height="76" WindowStyle="None" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize" PreviewMouseLeftButtonDown="OnMouseDown">
+  <Grid Margin="7">
+    <Ellipse Fill="#25347866" Margin="2,6,0,0"><Ellipse.Effect><BlurEffect Radius="7"/></Ellipse.Effect></Ellipse>
+    <Ellipse Stroke="#DCEBE5" StrokeThickness="2"><Ellipse.Fill><RadialGradientBrush Center="0.35,0.28" GradientOrigin="0.28,0.22" RadiusX="0.8" RadiusY="0.8"><GradientStop Color="#58A48F" Offset="0"/><GradientStop Color="#347866" Offset="0.55"/><GradientStop Color="#245B4C" Offset="1"/></RadialGradientBrush></Ellipse.Fill></Ellipse>
+    <Ellipse Margin="9" Stroke="#65FFFFFF" StrokeThickness="1"/>
+    <TextBlock Text="阅" Foreground="White" FontSize="27" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-2,0,0"/>
+    <Ellipse Width="9" Height="9" Fill="#8FE2C8" Stroke="White" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,7,7,0"/>
+  </Grid>
+</Window>

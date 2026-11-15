@@ -1,0 +1,11 @@
+<Window x:Class="ReadBridge.Desktop.LibraryItemEditWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="编辑文件信息" Width="500" SizeToContent="Height" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Background="#F8FBF9">
+  <Window.Resources>
+    <Style TargetType="Button"><Setter Property="Padding" Value="16,8"/><Setter Property="Margin" Value="8,0,0,0"/><Setter Property="Background" Value="White"/><Setter Property="Foreground" Value="#315849"/><Setter Property="BorderBrush" Value="#C8D8D1"/><Setter Property="Cursor" Value="Hand"/></Style>
+  </Window.Resources>
+  <Grid Margin="22"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <StackPanel><TextBlock Text="编辑名称和标签" FontSize="21" FontWeight="Bold" Foreground="#1D3028"/><TextBlock Text="重命名只改变文件库中的显示名称，不会修改原文件。" Foreground="#718078" Margin="0,5,0,0"/></StackPanel>
+    <StackPanel Grid.Row="1" Margin="0,20,0,0"><TextBlock Text="显示名称" FontWeight="SemiBold" Foreground="#315849" Margin="0,0,0,6"/><TextBox x:Name="NameBox" Padding="10,8" FontSize="15" BorderBrush="#C8D8D1"/></StackPanel>
+    <StackPanel Grid.Row="2" Margin="0,16,0,0"><TextBlock Text="分类标签" FontWeight="SemiBold" Foreground="#315849" Margin="0,0,0,6"/><TextBox x:Name="TagsBox" Padding="10,8" FontSize="15" BorderBrush="#C8D8D1"/><TextBlock Text="多个标签请用逗号分隔，例如：论文, 人工智能, 待读" Foreground="#718078" FontSize="12" Margin="0,6,0,0"/></StackPanel>
+    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,22,0,0"><Button Content="取消" IsCancel="True"/><Button Content="保存" Background="#347866" Foreground="White" IsDefault="True" Click="Save"/></StackPanel>
+  </Grid>
+</Window>

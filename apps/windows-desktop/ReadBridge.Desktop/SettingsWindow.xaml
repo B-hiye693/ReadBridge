@@ -1,0 +1,8 @@
+<Window x:Class="ReadBridge.Desktop.SettingsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="阅桥设置" Width="430" Height="350" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+  <Grid Margin="20"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <TextBlock Text="本机 FastAPI 地址"/><TextBox x:Name="ApiUrl" Grid.Row="1" Margin="0,6,0,18" Padding="7"/>
+    <StackPanel Grid.Row="2"><TextBlock Text="全局快捷键"/><WrapPanel Margin="0,7,0,0"><CheckBox x:Name="Ctrl" Content="Ctrl" Margin="0,0,12,0"/><CheckBox x:Name="Alt" Content="Alt" Margin="0,0,12,0"/><CheckBox x:Name="Shift" Content="Shift" Margin="0,0,12,0"/><ComboBox x:Name="KeyBox" Width="90"/></WrapPanel><WrapPanel Margin="0,18,0,0"><TextBlock Text="OCR 语言" VerticalAlignment="Center" Margin="0,0,12,0"/><ComboBox x:Name="OcrLanguage" Width="180"><ComboBoxItem Content="自动（中英检测）"/><ComboBoxItem Content="中文（简体）"/><ComboBoxItem Content="English"/></ComboBox></WrapPanel><CheckBox x:Name="AlwaysTop" Content="悬浮窗默认置顶" Margin="0,18,0,0"/></StackPanel>
+    <TextBlock Grid.Row="3" Text="若快捷键与其他软件冲突，阅桥会提示注册失败。" Foreground="#5E6B7A" Margin="0,14,0,0"/>
+    <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right"><Button Content="取消" IsCancel="True" Padding="14,7" Margin="0,0,8,0"/><Button Content="保存" IsDefault="True" Padding="14,7" Click="Save"/></StackPanel>
+  </Grid>
+</Window>

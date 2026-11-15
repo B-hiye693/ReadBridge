@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>ReadBridge Speech UI Test</title></head>
+<body>
+  <main><article><h1>测试文章</h1><p>这是一个用于浏览器语音交互测试的页面。页面包含足够长的正文，以便阅桥正文提取器正常识别主要内容。</p><p>测试不会连接后端，也不会播放真实声音。</p></article></main>
+  <script>
+    const readStored = () => JSON.parse(localStorage.getItem("rb-speech-storage") || "{}");
+    window.__rbMessageCount = 0;
+    window.__fakeSpeech = { spoken: [], cancelCount: 0, paused: false, current: null };
+    const FakeSpeechSynthesisUtterance = class {
+      constructor(text) { this.text = text; this.lang = ""; this.rate = 1; this.voice = null; }
+    };
+    const fakeSpeechSynthesis = {
+      getVoices() { return [{ name: "中文", lang: "zh-CN" }, { name: "English", lang: "en-US" }]; },
+      addEventListener() {}, removeEventListener() {},
+      speak(item) { window.__fakeSpeech.current = item; window.__fakeSpeech.spoken.push({ text: item.text, lang: item.lang, rate: item.rate }); item.onstart?.(); },
+      cancel() { window.__fakeSpeech.cancelCount += 1; },
+      pause() { window.__fakeSpeech.paused = true; },
+      resume() { window.__fakeSpeech.paused = false; },
+    };
+    // Chrome 自带的 Web Speech 属性可能只有 getter，必须显式覆盖，避免测试误用系统语音。
+    Object.defineProperty(window, "SpeechSynthesisUtterance", { configurable: true, value: FakeSpeechSynthesisUtterance });
+    Object.defineProperty(window, "speechSynthesis", { configurable: true, value: fakeSpeechSynthesis });
+    const easyReadData = {
+      title: "测试文章",
+      one_sentence: "这是文章的一句话说明。",
+      sections: [
+        { icon: "📌", heading: "发生了什么", content: "系统完成了测试。", source_text: "绝不能朗读的原文依据秘密。" },
+        { icon: "🔍", heading: "为什么", content: "这是第二部分。", source_text: "另一个不能朗读的依据。" },
+        { icon: "👤", heading: "人物观点", content: "这是第三部分的重要观点。", source_text: "第三部分的原文依据。" },
+        { icon: "📊", heading: "数据", content: "这是第四部分的重要数据。", source_text: "第四部分的原文依据。" },
+        { icon: "🧩", heading: "例子", content: "这是第五部分的重要例子。", source_text: "第五部分的原文依据。" },
+        { icon: "✅", heading: "结论", content: "这是第六部分的文章结论。", source_text: "第六部分的原文依据。" },
+      ],
+      key_points: [{ label: "结果", value: "测试成功", source_text: "隐藏依据" }],
+      difficult_words: [{ word: "MQTT", simple: "一种消息通信协议" }],
+      action: { needed: false, steps: [] },
+    };
+    window.chrome = {
+      storage: { local: {
+        get(_keys, callback) { callback(readStored()); },
+        set(values) { localStorage.setItem("rb-speech-storage", JSON.stringify({ ...readStored(), ...values })); },
+      } },
+      runtime: {
+        async sendMessage() { window.__rbMessageCount += 1; return { success: true, data: easyReadData }; },
+        onMessage: { addListener(listener) { window.__rbRuntimeListener = listener; } },
+      },
+    };
+    window.__rbErrors = [];
+    window.addEventListener("error", (event) => window.__rbErrors.push(event.message));
+  </script>
+  <script src="../../apps/browser-extension/speech.js"></script>
+  <script src="../../apps/browser-extension/extractor.js"></script>
+  <script src="../../apps/browser-extension/source-locator.js"></script>
+  <script src="../../apps/browser-extension/content.js"></script>
+</body>
+</html>

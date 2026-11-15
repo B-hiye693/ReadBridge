@@ -1,0 +1,15 @@
+:root { color-scheme: light; font-family: system-ui, "Microsoft YaHei", sans-serif; }
+body { margin: 0; width: 300px; color: #22322c; background: #f7faf8; }
+main { padding: 20px; }
+.brand { display: flex; align-items: center; gap: 11px; }
+.brand > span { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; color: white; background: #347866; font-weight: 700; }
+h1 { margin: 0; font-size: 19px; }
+.brand p { margin: 1px 0 0; color: #718078; font-size: 12px; }
+.tagline { margin: 16px 0 14px; color: #52655d; font-size: 13px; line-height: 1.6; }
+.primary { width: 100%; padding: 11px 16px; border: 0; border-radius: 11px; color: #fff; background: #347866; font: 700 14px system-ui, "Microsoft YaHei", sans-serif; cursor: pointer; }
+.primary:hover { background: #286756; }
+.primary:disabled { cursor: wait; opacity: .65; }
+.hint { margin: 13px 0; color: #64776f; font-size: 12px; line-height: 1.6; }
+.status { padding: 10px 12px; border-radius: 10px; background: #edf3f0; color: #597068; font-size: 12px; }
+.status.ok { color: #236651; background: #e2f4eb; }
+.status.error { color: #995042; background: #faece8; }

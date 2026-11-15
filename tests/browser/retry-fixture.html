@@ -1,0 +1,10 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>ReadBridge Retry Test</title></head><body>
+<main><article><h1>动态技术文档</h1><p>本文说明Type-C、USB、TTL、RS232和RS485接口。</p><p>V1与V2的软件开发方式不变，但硬件接口不同。</p></article></main>
+<script>
+window.__messages=[]; window.__rbErrors=[]; window.addEventListener('error',e=>window.__rbErrors.push(e.message));
+window.chrome={storage:{local:{get(_k,cb){cb({})},set(){}}},runtime:{async sendMessage(message){
+  if(message.type!=='READBRIDGE_EASY_READ') return {success:true}; window.__messages.push(message);
+  if(window.__messages.length===1) return {success:false,error:{code:'truncated_model_output',message:'截断',request_id:'first-id',retryable:true}};
+  return {success:true,data:{title:'动态技术文档',one_sentence:'V1与V2的接口有区别。',sections:[{icon:'📌',heading:'接口变化',content:'硬件接口不同。',source_text:'V1与V2的软件开发方式不变，但硬件接口不同。'}],key_points:[],difficult_words:[],action:{needed:false,steps:[]}}};
+},onMessage:{addListener(listener){window.__rbRuntimeListener=listener}}}};
+</script><script src="../../apps/browser-extension/speech.js"></script><script src="../../apps/browser-extension/extractor.js"></script><script src="../../apps/browser-extension/source-locator.js"></script><script src="../../apps/browser-extension/content.js"></script></body></html>

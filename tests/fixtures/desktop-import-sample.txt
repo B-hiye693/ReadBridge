@@ -1,0 +1,2 @@
+阅桥可以读取中文全文。
+ReadBridge can also read English text and numbers 2026.

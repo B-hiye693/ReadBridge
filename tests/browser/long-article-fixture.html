@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>ReadBridge Long Article Test</title></head>
+<body>
+  <main><article id="article"><h1>超长文章</h1></article></main>
+  <script>
+    const article = document.querySelector("#article");
+    for (let index = 1; index <= 850; index += 1) {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = `第${index}段完整内容。` + "这是一段用于验证长文章边界和明确提示的正文信息。".repeat(3);
+      article.appendChild(paragraph);
+    }
+    window.__payload = null;
+    window.__rbErrors = [];
+    window.addEventListener("error", (event) => window.__rbErrors.push(event.message));
+    window.chrome = {
+      storage: { local: { get(_keys, callback) { callback({}); }, set() {} } },
+      runtime: {
+        async sendMessage(message) {
+          window.__payload = message.payload;
+          return { success: true, data: {
+            title: "超长文章", one_sentence: "这是长文章测试。",
+            sections: [{ icon: "📌", heading: "测试", content: "系统只处理完整内容块。", source_text: "第1段完整内容。" }],
+            key_points: [], difficult_words: [], action: { needed: false, steps: [] },
+          } };
+        },
+        onMessage: { addListener(listener) { window.__rbRuntimeListener = listener; } },
+      },
+    };
+  </script>
+  <script src="../../apps/browser-extension/speech.js"></script>
+  <script src="../../apps/browser-extension/extractor.js"></script>
+  <script src="../../apps/browser-extension/source-locator.js"></script>
+  <script src="../../apps/browser-extension/content.js"></script>
+</body>
+</html>
