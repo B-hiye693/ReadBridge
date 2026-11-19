@@ -115,11 +115,13 @@ apps/
 tests/                    跨端测试、夹具与历史结果
 tools/                    启动、检查和打包脚本
 docs/                     配置与使用文档
-artifacts/                构建产物和历史发布物
+artifacts/                当前 v19 客户端与最新交付压缩包
 启动阅桥/                 集中的日常启动入口
 .env / .env.example       本机配置与无密钥模板
 LICENSE / NOTICE          授权与第三方说明
 ```
+
+根目录中以点开头的 `.venv`、`.dotnet`、`.dotnet-home` 和 `.appdata` 是本机运行或离线构建环境，不是项目功能模块，日常使用无需进入。临时构建目录统一使用 `.tmp-build-*` 命名并由 `.gitignore` 排除；正式目录中不保留历史临时副本。
 
 完整操作与参数说明见 [配置与使用手册](docs/CONFIGURATION.md)。
 
@@ -167,6 +169,5 @@ if (!(Test-Path .env)) { Copy-Item .env.example .env }
 
 验证脚本需要 Node.js。提交包生成在 `artifacts/ReadBridge-submission.zip`，采用白名单排除 `.env`、虚拟环境、浏览器用户数据和缓存。
 
-建议演示：选词解释 → 一键易读 → 原文定位 → 逐段阅读 → 浮动窗口 → 语音暂停与停止。展示 `/health` 说明实际Provider。Mock是规则演示，Mock TTS是测试音；真实AI需要凭据与网络。图片多模态尚未接入，长文受预算限制，AI结论应核对原文。目前没有目标人群临床效果验证。
-
+建议演示：选词解释 → 一键易读 → 原文定位 → 逐段阅读 → 浮动窗口 → 语音暂停与停止。展示 `/health` 说明实际Provider。Mock是规则演示，Mock TTS是测试音；真实AI需要凭据与网络。图片多模态尚未接入，长文受预算限制，AI结论应核对原文。
 
